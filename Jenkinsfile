@@ -1,10 +1,21 @@
 pipeline {
-  stages {
-        stage('build') {
+    agent any
+
+    stages {
+        stage('Build') {
             steps {
-                whoami
+                echo 'Building..'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
             }
         }
     }
-    agent { docker 'node:6.3' }
 }
