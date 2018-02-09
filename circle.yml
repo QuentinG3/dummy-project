@@ -1,0 +1,35 @@
+machine:
+  java:
+    version: openjdk8
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+  environment:
+    COMPOSE_PROJECT_NAME: kosmioannotator
+  services:
+    - docker
+
+dependencies:
+  override:
+    - wget https://raw.githubusercontent.com/Sagacify/ci-tools/master/run-sonar.sh
+    - chmod +x run-sonar.sh
+    - ./run-sonar.sh check
+    - ./run-sonar.sh install
+    - docker info
+    - pip install -U docker-compose==1.6.0
+    - docker-compose --version
+    - docker-compose pull
+    - docker-compose build node
+
+test:
+  override:
+    - docker-compose run node npm test
+    - sed -e "s=/var/www=$(pwd)=" coverage/lcov.info > lcov_report.info
+    - ./run-sonar.sh run
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - echo "{\"https://index.docker.io/v1/\":{\"auth\":\"<AUTH>\",\"email\":\"<EMAIL>\"}}" | sed "s/<EMAIL>/$HUB_EMAIL/;s/<AUTH>/$HUB_AUTH/" > ~/.dockercfg
+      - docker tag kosmioannotator_node sagacify/$CIRCLE_PROJECT_REPONAME:v$CIRCLE_BUILD_NUM
+      - docker push sagacify/$CIRCLE_PROJECT_REPONAME

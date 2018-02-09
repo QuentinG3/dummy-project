@@ -1,0 +1,15 @@
+node:
+  build: .
+  command: npm run watch
+  environment:
+    APP_PORT: 17141
+    LOG_LEVEL: info
+    NODE_ENV: development
+  ports:
+    - "19141:17141"
+  volumes:
+    - ./config:/var/www/config
+    - ./src:/var/www/src
+    - ./test:/var/www/test
+    - ./package.json:/var/www/package.json
+    - ./coverage:/var/www/coverage
