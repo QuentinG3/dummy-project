@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sudo apt install ntp
+                sudo apt update
             }
         }
     }
