@@ -6,12 +6,12 @@ pipeline {
                 sh 'whoami'
             }
         }
-        stage('Test1') {
+        stage('Test2') {
             steps {
                 sh 'cat /etc/group'
             }
         }
-        stage('Test') {
+        stage('Test3') {
             steps {
                 sh 'docker info'
             }
