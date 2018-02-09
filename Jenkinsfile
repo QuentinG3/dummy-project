@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Test1') {
             steps {
-                sh 'whoami'
+                sh 'service docker start'
             }
         }
         stage('Test2') {
