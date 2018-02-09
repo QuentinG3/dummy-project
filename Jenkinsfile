@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                docker --help
+                sudo apt install ntp
             }
         }
     }
