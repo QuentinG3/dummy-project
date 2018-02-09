@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('whoami') {
             steps {
-                whoami
+                echo $USER
             }
         }
         stage('Build') {
