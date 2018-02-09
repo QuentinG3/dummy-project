@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh 'whoami'
+                sh 'sudo docker info'
             }
         }
     }
