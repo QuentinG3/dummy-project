@@ -1,25 +1,11 @@
 pipeline {
-    agent any
-
+    agent {
+        docker { image 'node:8-alpine' }
+    }
     stages {
-        stage('whoami') {
-            steps {
-                echo "$USER"
-            }
-        }
-        stage('Build') {
-            steps {
-                echo 'Building..'
-            }
-        }
         stage('Test') {
             steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                sh 'node --version'
             }
         }
     }
