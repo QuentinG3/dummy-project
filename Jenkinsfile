@@ -1,19 +1,18 @@
+#!/usr/bin/env groovy
+
 pipeline {
-    agent any
+
+    agent {
+        docker {
+            image 'node:8-alpine'
+        }
+    }
+
     stages {
-        stage('Test1') {
+        stage('Build') {
             steps {
-                sh 'service docker start'
-            }
-        }
-        stage('Test2') {
-            steps {
-                sh 'cat /etc/group'
-            }
-        }
-        stage('Test3') {
-            steps {
-                sh 'docker info'
+                echo 'Building...'
+                sh 'npm install'
             }
         }
     }
